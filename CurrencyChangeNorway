@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import csv
+import matplotlib as plt
 
 df = pd.read_csv('C:\\Users\\Weronika\\Desktop\\EXR\\EXR_Currency.csv', delimiter=';', decimal=',')
 df = df.drop(['FREQ', 'Frekvens','Basisvaluta','Kvoteringsvaluta','TENOR','Løpetid','DECIMALS','CALCULATED'],axis=1)
