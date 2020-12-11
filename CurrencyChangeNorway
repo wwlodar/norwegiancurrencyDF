@@ -7,10 +7,18 @@ df = pd.read_csv('C:\\Users\\Weronika\\Desktop\\EXR\\EXR_Currency.csv', delimite
 df = df.drop(['FREQ', 'Frekvens','Basisvaluta','Kvoteringsvaluta','TENOR','Løpetid','DECIMALS','CALCULATED'],axis=1)
 df['OBS_VALUE'] = df['OBS_VALUE'].replace(',', '.')
 
+#DKK
 DKK_values =df.loc[df['BASE_CUR'] == 'DKK']
 max_DKK_value =max(DKK_values['OBS_VALUE'])
 min_DKK_value =min(DKK_values['OBS_VALUE'])
 avg_DDK_value = DKK_values['OBS_VALUE'].mean()
 print(avg_DDK_value)
 print(max_DKK_value)
-print(min_DKK_value)
+#Plot for the first currency
+x = DKK_values['TIME_PERIOD']
+y = DKK_values['OBS_VALUE']
+DKK_values['TIME_PERIOD'] = pd.to_datetime(DKK_values['TIME_PERIOD'], format='%Y-%m-%d', errors='coerce')
+yMonth = DKK_values['TIME_PERIOD'].dt.month
+yYear = DKK_values['TIME_PERIOD'].dt.year
+plt.title('Changes in Danish Crone in relation to Norwegian Crone')
+plt.plot(x, y, color='green')
