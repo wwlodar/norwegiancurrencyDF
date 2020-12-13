@@ -1,9 +1,7 @@
-import numpy as np
 import pandas as pd
-import csv
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-import datetime as dt
+from matplotlib.figure import Figure
 
 df = pd.read_csv('C:\\Users\\Weronika\\Desktop\\EXR\\EXR_Currency.csv', delimiter=';', decimal=',')
 df = df.drop(['FREQ', 'Frekvens','Basisvaluta','Kvoteringsvaluta','TENOR','Løpetid','DECIMALS','CALCULATED'],axis=1)
@@ -15,19 +13,23 @@ DKK_values['OBS_VALUE'] = DKK_values['OBS_VALUE'].multiply(other = 0.01)
 max_DKK_value =max(DKK_values['OBS_VALUE'])
 min_DKK_value =min(DKK_values['OBS_VALUE'])
 avg_DDK_value = DKK_values['OBS_VALUE'].mean()
-print(avg_DDK_value)
-print(max_DKK_value)
-#Plot for the first currency
+print("Norwegian Crone in relation to Danish Crone:")
+print("Average value of Norwegian Crone in the last year was ", round(avg_DDK_value,2), " NOK.")
+print("Maximum price for Norwegian Crone was ",round(max_DKK_value,2)," NOK and it happened on", DKK_values.loc[DKK_values["OBS_VALUE"] == max_DKK_value, "TIME_PERIOD"].iloc[0],".")
+print("Difference between highest and lowest value of Norwegian Crone in the last year was ", max_DKK_value -min_DKK_value, "NOK.")
+
+#Plot DKK
 DKK_values['TIME_PERIOD'] = pd.to_datetime(DKK_values['TIME_PERIOD'], format='%Y-%m-%d', errors='coerce')
 x = DKK_values['TIME_PERIOD']
 y = DKK_values['OBS_VALUE']
+plt.figure(figsize=(10,3))
 locator = mdates.MonthLocator()
 fmt = mdates.DateFormatter('%Y-%m')
-plt.title('Changes in Danish Crone in relation to 1 Norwegian Crone')
+plt.title('Change in value of Norwegian Crone in relation to 1 Danish Crone')
 plt.plot(x, y, color='green')
 X = plt.gca().xaxis
 X.set_major_locator(locator)
 X.set_major_formatter(fmt)
-plt.xticks(fontsize= 9, rotation = 90)
+plt.xticks(fontsize= 9, rotation = 0)
+plt.ylabel("DKK")
 plt.show()
-
