@@ -7,7 +7,7 @@ df = pd.read_csv('C:\\Users\\Weronika\\Desktop\\EXR\\EXR_Currency.csv', delimite
 df = df.drop(['FREQ', 'Frekvens','Basisvaluta','Kvoteringsvaluta','TENOR','Løpetid','DECIMALS','CALCULATED'],axis=1)
 df['OBS_VALUE'] = df['OBS_VALUE'].replace(',', '.')
 
-#DKK
+#Danish Crones
 DKK_values =df.loc[df['BASE_CUR'] == 'DKK']
 DKK_values['OBS_VALUE'] = DKK_values['OBS_VALUE'].multiply(other = 0.01)
 max_DKK_value =max(DKK_values['OBS_VALUE'])
